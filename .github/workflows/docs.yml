@@ -1,0 +1,28 @@
+name: Docs
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install MkDocs stack
+        run: pip install mkdocs-material mkdocstrings[python] pymdown-extensions
+
+      - name: Build & deploy to GitHub Pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+        run: mkdocs gh-deploy --clean --force

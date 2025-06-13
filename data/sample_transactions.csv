@@ -1,0 +1,6 @@
+timestamp,amount,currency,description,category_name
+2025-06-01T09:15:00,10.50,USD,Coffee,Food
+2025-06-02T14:30:00,250.00,EUR,Groceries,Groceries
+2025-06-03T08:45:00,15.75,USD,Taxi,Transport
+2025-06-04T20:00:00,1000.00,JPY,Electronics,Electronics
+2025-06-05T18:20:00,200.00,USD,Restaurant,Food

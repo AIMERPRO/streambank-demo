@@ -1,0 +1,23 @@
+site_name: StreamBank Demo
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - search.suggest
+repo_url: https://github.com/<user>/streambank-demo
+edit_uri: edit/main/docs/
+
+nav:
+  - 🏠 Обзор: index.md
+  - 🚀 Быстрый старт: getting-started.md
+  - ⚙️ Архитектура: architecture.md
+  - 📚 API: api.md
+  - 🛠️ Разработка: development.md
+  - 🤝 Contributing: contributing.md
+
+plugins:
+  - search
+  - mkdocstrings
+markdown_extensions:
+  - admonition
+  - codehilite
