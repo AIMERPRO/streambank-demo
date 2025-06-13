@@ -12,9 +12,12 @@
 ```bash
 git clone https://github.com/<user>/streambank-demo.git
 cd streambank-demo
+
 cp .env.example .env          # задайте пароли
+
 docker-compose up --build -d  # поднимет БД, сервисы, Flower, Grafana, автоматически промигрирует через сервис Migrate
 docker-compose exec web python manage.py createsuperuser  # создаст пользователя с правами Superuser
+
 open http://localhost:8000/admin    # Django приложения (сайт администратора)
 open http://localhost:8001/docs  # FastAPI Swagger
 ```
