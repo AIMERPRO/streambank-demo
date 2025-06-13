@@ -1,4 +1,9 @@
 * text=auto eol=lf
 
 *.py text eol=lf
-docs/ *.png */staticfiles/ = linguist-documentation
+
+docs/** linguist-documentation
+
+staticfiles/** linguist-documentation
+
+*.png linguist-generated
