@@ -10,8 +10,8 @@
 ## Quick Start
 
 ```bash
-git clone https://github.com/<user>/streambank-demo.git
-cd streambank-demo
+git clone https://github.com/AIMERPRO/streambank-demo.git  # клонируем проект на локальную машину
+cd streambank-demo  # переходим в папку проекта
 
 cp .env.example .env          # задайте пароли
 
