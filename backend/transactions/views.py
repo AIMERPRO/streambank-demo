@@ -22,9 +22,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     CRUD для категорий транзакций.
     """
 
-    permission_classes = [
-        IsAuthenticatedOrReadOnly
-    ]  # Неавторизованный доступ к спискам, но запрещена запись
+    permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
@@ -40,9 +38,6 @@ class TransactionViewSet(viewsets.ModelViewSet):
       • GET  /transactions/window-stats/    – пример оконных функций
     """
 
-    # Подтягиваем категорию одним JOIN-ом во избежание N+1
-    # кешируем только список
-
     permission_classes = [IsAdminUser]  # Только Администраторам
     queryset = Transaction.objects.select_related("category").all()
     serializer_class = TransactionSerializer
@@ -57,9 +52,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
         Поддерживает пагинацию.
         """
         qs = self.get_queryset().filter(is_anomaly=True)
-        qs = self.filter_queryset(
-            qs
-        )  # применить filter_backends, если они есть
+        qs = self.filter_queryset(qs)
 
         page = self.paginate_queryset(qs)
         if page is not None:
@@ -93,7 +86,7 @@ class TransactionViewSet(viewsets.ModelViewSet):
         )
 
     @action(detail=False, methods=["get"], url_path="monthly-totals")
-    @method_decorator(cache_page(60 * 5))  # Кешируем на 5 минут
+    @method_decorator(cache_page(60 * 5))
     def monthly_totals(self, request):
         """
         Выполняет SQL из docs/sql/cte_monthly_category_totals.sql,

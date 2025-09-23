@@ -37,7 +37,6 @@ def get_current_user(
     except JWTError:
         raise credentials_exception
 
-    # Забираем пользователя из Django-таблицы auth_user
     with conn.cursor() as cur:
         cur.execute(
             "SELECT id, username, email, is_active"

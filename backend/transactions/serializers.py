@@ -42,7 +42,6 @@ class TransactionSerializer(serializers.ModelSerializer):
             "category_id",
             "is_anomaly",
         ]
-        # Поля, которые клиент не может задавать напрямую
         read_only_fields = ["id", "is_anomaly"]
         extra_kwargs = {
             "description": {

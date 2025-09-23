@@ -38,7 +38,6 @@ async def login(
         )
 
     user_id, hashed_password = row["id"], row["password"]
-    # Проверяем plain→hash
     if not django_pbkdf2_sha256.verify(form_data.password, hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -46,7 +45,6 @@ async def login(
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-    # Генерируем JWT
     access_expires = timedelta(minutes=30)
     expire = datetime.utcnow() + access_expires
     to_encode = {"sub": form_data.username, "exp": expire, "user_id": user_id}

@@ -7,9 +7,6 @@ from rest_framework.test import APIClient
 from transactions.models import Category
 
 
-# ------------------------------------------------------------------------
-# Фикстуры для клиента и данных
-# ------------------------------------------------------------------------
 @pytest.fixture
 def api_client():
     """Общий DRF APIClient."""
@@ -66,9 +63,6 @@ def transaction_payload(category):
     return _payload
 
 
-# ------------------------------------------------------------------------
-# 1) Тест базовой JWT-авторизации
-# ------------------------------------------------------------------------
 @pytest.mark.django_db
 def test_jwt_auth_and_access(api_client, user, auth_headers):
     # без токена — 401/403
@@ -83,9 +77,6 @@ def test_jwt_auth_and_access(api_client, user, auth_headers):
     assert resp.status_code == status.HTTP_200_OK
 
 
-# ------------------------------------------------------------------------
-# 2) Остальные CRUD-тесты уже с auth_headers
-# ------------------------------------------------------------------------
 @pytest.mark.django_db
 class TestTransactionAPI:
     @pytest.fixture(autouse=True)

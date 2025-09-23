@@ -21,17 +21,14 @@ def detect_anomalies(threshold_std=3):
              - marked: число помеченных записей (int)
     """
 
-    # Получаем статистику по полю amount
     stats = Transaction.objects.aggregate(
         mean=Avg("amount"), std=StdDev("amount")
     )
     mean, std = stats["mean"] or 0, stats["std"] or 0
 
-    # Вычисляем границы аномальности
     threshold = Decimal(str(threshold_std))
     lower, upper = mean - threshold * std, mean + threshold * std
 
-    # Выбираем транзакции, не помеченные ранее, которые выходят за границы
     qs = Transaction.objects.filter(
         Q(amount__lt=lower) | Q(amount__gt=upper), is_anomaly=False
     )

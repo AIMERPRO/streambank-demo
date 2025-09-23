@@ -10,7 +10,6 @@ class Settings(BaseSettings):
     DATABASE_PORT: int
     DATABASE_NAME: str
 
-    # Ниже — ключ и алгоритм для JWT, такие же, как в Django
     SECRET_KEY: str
     ALGORITHM: str = "HS256"
 
@@ -30,8 +29,8 @@ class Settings(BaseSettings):
 
 
 settings: "Settings"
-if TYPE_CHECKING:  # ← для mypy
-    settings = Settings(  # подставляем фиктивные данные
+if TYPE_CHECKING:
+    settings = Settings(
         DATABASE_USER="x",
         DATABASE_PASSWORD="x",
         DATABASE_HOST="x",

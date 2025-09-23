@@ -6,14 +6,6 @@ from multiprocessing import Pool, cpu_count
 
 from django.utils import timezone
 
-# -------------------------------------------------------------------
-# Настройка Django:
-# 1. Добавляем корень проекта (где находится manage.py) в sys.path,
-#    чтобы правильно решать импорты Django-приложения.
-# 2. Устанавливаем переменную окружения для настроек Django.
-# 3. Вызываем django.setup() для инициализации ORM.
-# -------------------------------------------------------------------
-
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.dirname(SCRIPT_DIR)  # /app/backend
 sys.path.insert(0, PROJECT_DIR)
@@ -25,9 +17,6 @@ django.setup()
 
 from transactions.models import Category, Transaction  # noqa: E402
 
-# -------------------------------------------------------------------
-# Настройка логирования для удобства отладки и мониторинга процесса
-# -------------------------------------------------------------------
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
 )
@@ -60,9 +49,7 @@ def _import_batch(rows):
     Возвращает число созданных записей.
     """
     objs = [_process_row(r) for r in rows]
-    Transaction.objects.bulk_create(
-        objs
-    )  # Сохраняем пачкой — быстрее, чем save() в цикле
+    Transaction.objects.bulk_create(objs)
     return len(objs)
 
 
@@ -101,7 +88,6 @@ def import_transactions_multiprocess(path: str, chunk_size: int = 500) -> int:
         f" processes={pool_size}"
     )
 
-    # Закрываем старые соединения перед форком
     from django.db import connections
 
     for conn in connections.all():
