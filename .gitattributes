@@ -4,6 +4,11 @@
 
 docs/** linguist-documentation
 
-staticfiles/** linguist-documentation
+staticfiles/** linguist-vendored
+**/staticfiles/** linguist-vendored
+**/dist/** linguist-vendored
+**/build/** linguist-vendored
+**/node_modules/** linguist-vendored
+
 
 *.png linguist-generated
